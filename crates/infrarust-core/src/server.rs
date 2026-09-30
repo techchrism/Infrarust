@@ -497,7 +497,8 @@ impl ProxyServer {
             MiddlewareResult::ShortCircuit => {
                 // Check if legacy was detected
                 if ctx.extensions.contains::<LegacyDetected>() {
-                    return self.legacy_handler.handle(&mut ctx).await;
+                    tracing::debug!("dropping legacy connection");
+                    return Ok(());
                 }
                 return Ok(());
             }
